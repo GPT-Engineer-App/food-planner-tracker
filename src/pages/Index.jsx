@@ -84,10 +84,10 @@ const Index = () => {
 const FoodCard = ({ food }) => {
   const [quantity, setQuantity] = useState(food.quantity);
 
-  const calories = (food.calories / food.quantity) * quantity;
   const carbs = (food.carbs / food.quantity) * quantity;
   const fats = (food.fats / food.quantity) * quantity;
   const proteins = (food.proteins / food.quantity) * quantity;
+  const calories = carbs * 4 + fats * 9 + proteins * 4;
 
   return (
     <Box borderWidth={1} borderRadius="md" p={4}>
