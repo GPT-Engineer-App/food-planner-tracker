@@ -82,6 +82,11 @@ const Index = () => {
 };
 
 const FoodCard = ({ food, onEdit }) => {
+  const { isOpen: isOpenEditFood, onOpen: onOpenEditFood, onClose: onCloseEditFood } = useDisclosure();
+
+  const handleEdit = () => {
+    onOpenEditFood();
+  };
   const [quantity, setQuantity] = useState(food.quantity);
 
   const carbs = (food.carbs / food.quantity) * quantity;
@@ -94,10 +99,11 @@ const FoodCard = ({ food, onEdit }) => {
   };
 
   return (
-    <Box borderWidth={1} borderRadius="md" p={4} draggable onDragStart={handleDragStart}>
-      <Flex justify="space-between" align="center">
-        <Heading size="sm">{food.name}</Heading>
-        <Button size="sm" onClick={() => onEdit(food)}>
+    <>
+      <Box borderWidth={1} borderRadius="md" p={4} draggable onDragStart={handleDragStart}>
+        <Flex justify="space-between" align="center">
+          <Heading size="sm">{food.name}</Heading>
+          <Button size="sm" onClick={handleEdit}>
           Modifica
         </Button>
       </Flex>
@@ -124,6 +130,7 @@ const FoodCard = ({ food, onEdit }) => {
         ))}
       </Wrap>
     </Box>
+    </>
   );
 };
 
