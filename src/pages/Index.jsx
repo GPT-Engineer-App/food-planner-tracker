@@ -81,7 +81,7 @@ const Index = () => {
   );
 };
 
-const FoodCard = ({ food }) => {
+const FoodCard = ({ food, onEdit }) => {
   const [quantity, setQuantity] = useState(food.quantity);
 
   const carbs = (food.carbs / food.quantity) * quantity;
@@ -89,9 +89,18 @@ const FoodCard = ({ food }) => {
   const proteins = (food.proteins / food.quantity) * quantity;
   const calories = carbs * 4 + fats * 9 + proteins * 4;
 
+  const handleDragStart = (e) => {
+    e.dataTransfer.setData("foodName", food.name);
+  };
+
   return (
-    <Box borderWidth={1} borderRadius="md" p={4}>
-      <Heading size="sm">{food.name}</Heading>
+    <Box borderWidth={1} borderRadius="md" p={4} draggable onDragStart={handleDragStart}>
+      <Flex justify="space-between" align="center">
+        <Heading size="sm">{food.name}</Heading>
+        <Button size="sm" onClick={() => onEdit(food)}>
+          Modifica
+        </Button>
+      </Flex>
       <Flex align="center" mt={2}>
         <Text mr={2}>Quantità:</Text>
         <NumberInput size="sm" value={quantity} onChange={(_, value) => setQuantity(value)} min={1}>
